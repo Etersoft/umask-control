@@ -1,0 +1,23 @@
+#!/bin/sh
+
+. /etc/control.d/functions
+
+CONFIG=/etc/profile.d/umask.sh
+
+new_subst user \
+	'^umask[[:space:]]+0022$' \
+	's,^\(umask[[:space:]]\+\)[[:digit:]]\+$,\10022,'
+new_subst group \
+	'^umask[[:space:]]+0002$' \
+	's,^\(umask[[:space:]]\+\)[[:digit:]]\+$,\10002,'
+new_subst all \
+	'^umask[[:space:]]+0000$' \
+	's,^\(umask[[:space:]]\+\)[[:digit:]]\+$,\10000,'
+
+new_help user 'Write permissions on new files only for owner'
+new_help group 'Write permissions on new files for owner and group'
+new_help all 'Write permissions on new file for all users'
+
+new_summary 'umask rules'
+
+control_subst "$CONFIG" "$*" || exit 1
