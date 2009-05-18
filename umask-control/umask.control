@@ -2,7 +2,7 @@
 
 . /etc/control.d/functions
 
-CONFIG=/etc/umask.conf
+CONFIG=/etc/sysconfig/umask.conf
 
 new_subst user \
 	'^umask[[:space:]]+0022$' \
